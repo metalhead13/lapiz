@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tienda Skates</title>
+    <!--llamado de la libreria Ajax y el jquery  /  bootstrap-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!--llamado de los Script para las tablas "skate", "client" y "message"-->
+    <script type="text/javascript" src="js/scriptClient.js"></script>
+    <script type="text/javascript" src="js/scriptSkate.js"></script>
+    <script type="text/javascript" src="js/scriptMessage.js"></script>
+    <script type="text/javascript" src="js/scriptCategory.js"></script>
+    <script type="text/javascript" src="js/scriptReservation.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+
+
+    <!--Estilos CSS-->
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/estilos_II.css">
+
+    <!--Codigo para Autenticacion-->
+    <base href="/" />
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <!--<script type="text/javascript" src="script.js"></script>-->
+
+
+
+    <!--Copiamos Link de Jquery-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+
+<body>
+
+    <!--Llamado para Autenticacion-->
+    <h1>#MissionTIC 2022</h1>
+    <div class="container unauthenticated">
+        Para Iniciar Sesion con Github:
+        <a href="/oauth2/authorization/github">click here</a>
+    </div>
+
+    <div class="container authenticated" style="display:none">
+        Autenticado como:
+        <span id="user"></span>
+
+        <div class="wrap">
+            <ul class="tabs">
+                <li><a href="#Inicio"><span></span><span class="tab-text">Inicio</span></a></li>
+                <li><a href="#Category"><span></span><span class="tab-text">Category</span></a></li>
+                <li><a href="#Skate"><span></span><span class="tab-text">Skate</span></a></li>
+                <li><a href="#Client"><span></span><span class="tab-text">Client</span></a></li>
+                <li><a href="#Message"><span></span><span class="tab-text">Message</span></a></li>
+                <li><a href="#Reservation"><span></span><span class="tab-text">Reservation</span></a></li>
+            </ul>
+
+            <div class="tabs-container">
+                <section class="form-Inicio" id="Inicio">
+                    <h2>Bienvenidos al Inventario "SKATES"</h2>
+                    <img src="img/SkateBoard2.png" alt="">
+                </section>
+                <section class="form-Category" id="Category">
+                    <h2>! Seccion Categoria ¡</h2>
+
+                    <!--Creacion del Formulario Category-->
+
+                    <label>NAME:</label>
+                    <input class="controlCategory" type="text" id="name" placeholder="name"><br>
+                    <label>DESCRIPTION</label>
+                    <input class="controlCategory" type="text" id="description" placeholder="description"><br>
+                    <br>
+                    <button class="botonCategory" onclick="agregarCategory()">Agregar!</button>
+
+                    <!--Creacion de la tabla de productos category-->
+                    <div>
+                        <table class="tablaCategory">
+                            <h2>Lista de Categorias</h2>
+                            <tbody id="miListaCategory"></tbody>
+                        </table>
+                    </div>
+                    <br>
+                    <button class="botonCategory" onclick="listarCategory()">Listar!</button>
+                    <button class="botonCategory" onclick="actualizarCategory()">Actualizar!</button>
+                    <br>
+                    <script type="text/javascript">
+                        window.onload = autoInicioCategory();
+                    </script>
+                </section>
+
+                <section class="form-Skate" id="Skate">
+                    <h2>! Seccion Skates "Patinetas" ¡</h2>
+
+                    <!--Creacion del Formulario Skate-->
+
+                    <label>NAME:</label>
+                    <input class="controlSkate" type="text" id="name2" placeholder="name"><br>
+                    <label>MODEL:</label>
+                    <input class="controlSkate" type="text" id="brand" placeholder="brand"><br>
+                    <label>YEAR:</label>
+                    <input class="controlSkate" type="number" id="year" placeholder="year"><br>
+                    <label>NAME:</label>
+                    <input class="controlSkate" type="text" id="description2" placeholder="description"><br>
+                    <!--<label>Seleccionar Categoria</label><br>
+                <select id="selectCategory"></select>-->
+                    <br>
+                    <button class="botonSkate" onclick="agregarSkate()">Agregar!</button>
+
+                    <!--Creacion de la tabla de productos skate-->
+                    <div>
+                        <table class="tablaSkate">
+                            <h2>Lista de Skates "Patinetas"</h2>
+                            <tbody id="miListaSkate"></tbody>
+                        </table>
+                    </div>
+                    <br>
+                    <button class="botonSkate" onclick="listarSkate()">Listar!</button>
+                    <button class="botonSkate" onclick="actualizar()">Actualizar!</button>
+                    <br>
+
+                </section>
+
+                <section class="form-Client" id="Client">
+                    <!--Seccion Clientes-->
+                    <h2>! Seccion Cientes ¡</h2>
+
+                    <!--Creacion del Formulario Client-->
+
+                    <label>NAME:</label>
+                    <input class="controlCliente" type="text" id="name3" placeholder="name"><br>
+                    <label>EMAIL:</label>
+                    <input class="controlCliente" type="text" id="email" placeholder="email"><br>
+                    <label>AGE:</label>
+                    <input class="controlCliente" type="number" id="age" placeholder="age"><br>
+                    <br>
+                    <button class="botonCliente" onclick="agregarCliente()">Agregar!</button>
+
+                    <!--Creacion de la tabla de Clientes-->
+                    <div>
+                        <table class="tablaCliente">
+                            <h2>Lista de Clientes</h2>
+                            <tbody id="miListaClient"></tbody>
+                        </table>
+                    </div>
+                    <br>
+                    <button class="botonCliente" onclick="listarCliente()">Listar!</button>
+                    <button class="botonCliente" onclick="actualizarCliente()">Actualizar!</button>
+                    <br>
+                </section>
+
+                <section class="form-Message" id="Message">
+                    <!--Seccion Mensajes-->
+                    <h2>! Seccion Mensajes ¡</h2>
+
+                    <!--Creacion del Formulario Message-->
+
+                    <label>NAME:</label>
+                    <input class="controlMessage" type="text" id="messageText" placeholder="messageText"><br>
+                    <br>
+                    <button class="botonMessage" onclick="agregarMensaje()">Agregar!</button>
+
+                    <!--Creacion de la tabla de Client-->
+                    <div>
+                        <table class="tablaMessage">
+                            <h2>Lista de Mensajes</h2>
+                            <tbody id="miListaMessage"></tbody>
+                        </table>
+                    </div>
+                    <br>
+                    <button class="botonMessage" onclick="listarMensaje()">Listar!</button>
+                    <button class="botonMessage" onclick="actualizarMensaje()">Actualizar!</button>
+                    <br>
+                </section>
+
+                <section class="form-Reservation" id="Reservation">
+                    <!--Seccion Reservaciones-->
+                    <h2>! Seccion Reservaciones ¡</h2>
+
+                    <!--Creacion del Formulario Reservation-->
+
+                    <label>STARTDATE:</label>
+                    <input class="controlReservation" type="date" id="startDate" placeholder="startDate"><br>
+                    <label>DEVOLUTIONDATE:</label>
+                    <input class="controlReservation" type="date" id="devolutionDate" placeholder="devolutionDate"><br>
+                    <label>STATUS:</label>
+                    <input class="controlReservation" type="text" id="status" placeholder="status">
+                    <br>
+                    <button class="botonReservation" onclick="agregarReservation()">Agregar!</button>
+
+                    <!--Creacion de la tabla de Reservations-->
+                    <div>
+                        <table class="tablaReservation">
+                            <h2>Lista de Reservaciones</h2>
+                            <tbody id="miListaReservation"></tbody>
+                        </table>
+                    </div>
+                    <br>
+                    <button class="botonReservation" onclick="listarReservation()">Listar!</button>
+                    <button class="botonReservation" onclick="actualizarReservation()">Actualizar!</button>
+                    <br>
+                </section>
+            </div>
+        </div>
+
+        <!--Estilo de la Tabla-->
+        <style>
+            table,
+            th,
+            td {
+                border: 1px solid rgb(0, 42, 70);
+                border-collapse: collapse;
+            }
+        </style>
+
+        <hr>
+
+    </div>
+</body>
+
+<script type="text/javascript">
+    $.get("/user", function (data) {
+        $("#user").html(data.name);
+        $(".unauthenticated").hide()
+        $(".authenticated").show()
+    });
+</script>
+
+
+
+</html>
