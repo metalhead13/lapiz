@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Tienda Skates</title>
+    <title>Tienda Skates Ramone</title>
     <!--llamado de la libreria Ajax y el jquery  /  bootstrap-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
@@ -16,6 +16,7 @@
     <script type="text/javascript" src="js/scriptMessage.js"></script>
     <script type="text/javascript" src="js/scriptCategory.js"></script>
     <script type="text/javascript" src="js/scriptReservation.js"></script>
+    <script type="text/javascript" src="js/scriptReports.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
 
 
@@ -40,16 +41,17 @@
 <body>
 
     <!--Llamado para Autenticacion-->
-    <h1>ALEJANDRO AMAYA PATINETAS</h1>
-    <div class="container unauthenticated">
-        Para Iniciar Sesion con Github:
-        <a href="/oauth2/authorization/github">click here</a>
+    <h3 class="centrarTitulo">RAMONE PATINETAS</h3>
+    <div class="container unauthenticated" id="centrarAutenticacion">
+        Iniciar Sesion con Github:
+        <a href="/oauth2/authorization/github">click aqui</a>
     </div>
 
     <div class="container authenticated" style="display:none">
         Autenticado como:
         <span id="user"></span>
 
+        <!---------------------------------------------Menu Tabs----------------------------------------->
         <div class="wrap">
             <ul class="tabs">
                 <li><a href="#Inicio"><span></span><span class="tab-text">Inicio</span></a></li>
@@ -58,40 +60,41 @@
                 <li><a href="#Client"><span></span><span class="tab-text">Client</span></a></li>
                 <li><a href="#Message"><span></span><span class="tab-text">Message</span></a></li>
                 <li><a href="#Reservation"><span></span><span class="tab-text">Reservation</span></a></li>
+                <li><a href="#Reports"><span></span><span class="tab-text">Reports</span></a></li>
             </ul>
 
             <div class="tabs-container">
+                <!---------------------------------------MENU INICIO--------------------------------------->
                 <section class="form-Inicio" id="Inicio">
                     <h2>Bienvenidos al Inventario "SKATES"</h2>
                     <img src="img/SkateBoard.png" alt="">
                 </section>
+
+                <!---------------------------------------MENU CATEGORY------------------------------------->
+
                 <section class="form-Category" id="Category">
                     <h2>! Seccion Categoria ¡</h2>
 
                     <!--Creacion del Formulario Category-->
+                    
+                        <label>NAME:</label>
+                        <input class="controlCategory" type="text" id="name" placeholder="escribe el nombre de la categoria"><br>
+                        <label>DESCRIPTION</label>
+                        <input class="controlCategory" type="text" id="description" placeholder="escribe la descripcion de la categoria"><br>
+                        <br>
+                        <button class="botonCategory" onclick="agregarCategory()">Agregar!</button>
+                        <br>
+                        <h2>Lista de Skates "Patinetas"</h2>
+                        <div id="miListaCategory"></div>
 
-                    <label>NAME:</label>
-                    <input class="controlCategory" type="text" id="name" placeholder="name"><br>
-                    <label>DESCRIPTION</label>
-                    <input class="controlCategory" type="text" id="description" placeholder="description"><br>
-                    <br>
-                    <button class="botonCategory" onclick="agregarCategory()">Agregar!</button>
-
-                    <!--Creacion de la tabla de productos category-->
-                    <div>
-                        <table class="tablaCategory">
-                            <h2>Lista de Categorias</h2>
-                            <tbody id="miListaCategory"></tbody>
-                        </table>
-                    </div>
-                    <br>
-                    <button class="botonCategory" onclick="listarCategory()">Listar!</button>
-                    <button class="botonCategory" onclick="actualizarCategory()">Actualizar!</button>
-                    <br>
-                    <script type="text/javascript">
-                        window.onload = autoInicioCategory();
-                    </script>
+                        <br>
+                        <button class="botonCategory" onclick="listarCategory()">Listar!</button>
+                        <button class="botonCategory" onclick="actualizarCategory()">Actualizar!</button>
+                        <br>
+                                            
                 </section>
+
+                <!------------------------------------MENU SKATE------------------------------------------>
 
                 <section class="form-Skate" id="Skate">
                     <h2>! Seccion Skates "Patinetas" ¡</h2>
@@ -99,59 +102,69 @@
                     <!--Creacion del Formulario Skate-->
 
                     <label>NAME:</label>
-                    <input class="controlSkate" type="text" id="name2" placeholder="name"><br>
+                    <input class="controlSkate" type="text" id="name2" placeholder="escribe el nombre de la patineta 'Skate'" ><br>
                     <label>MODEL:</label>
-                    <input class="controlSkate" type="text" id="brand" placeholder="brand"><br>
+                    <input class="controlSkate" type="text" id="brand" placeholder="escribe la marca de la patineta 'Skate'" ><br>
                     <label>YEAR:</label>
-                    <input class="controlSkate" type="number" id="year" placeholder="year"><br>
-                    <label>NAME:</label>
-                    <input class="controlSkate" type="text" id="description2" placeholder="description"><br>
-                    <!--<label>Seleccionar Categoria</label><br>
-                <select id="selectCategory"></select>-->
+                    <input class="controlSkate" type="number" id="year" placeholder="escribe solo el año de Fabricacion 'YYYY'"><br>
+                    <label>DESCRIPTION:</label>
+                    <input class="controlSkate" type="text" id="description2" placeholder="escribe la descripcion de la patineta 'Skate'" ><br>
+                    
                     <br>
                     <button class="botonSkate" onclick="agregarSkate()">Agregar!</button>
+                    
+                    
+                    <script type="text/javascript">
+                        window.onload = autoInicioCategory();
+                    </script>
 
-                    <!--Creacion de la tabla de productos skate-->
-                    <div>
-                        <table class="tablaSkate">
-                            <h2>Lista de Skates "Patinetas"</h2>
-                            <tbody id="miListaSkate"></tbody>
-                        </table>
-                    </div>
+                    <label>Seleccionar Categoria</label><br>
+                    <select id="select-category"></select>
+                    <br>
+                    <br>
+                    <button class="botonSkate" onclick="agregarSkate()">Agregar!</button>
+                    <br>
+                    <h2>Lista de Skates "Patinetas"</h2>
+                    <div id="miListaSkate"></div>
+            
                     <br>
                     <button class="botonSkate" onclick="listarSkate()">Listar!</button>
                     <button class="botonSkate" onclick="actualizar()">Actualizar!</button>
                     <br>
+                    
 
                 </section>
 
+                <!-------------------------------------MENU CLIENT----------------------------------------->
+
                 <section class="form-Client" id="Client">
                     <!--Seccion Clientes-->
-                    <h2>! Seccion Cientes ¡</h2>
+                    <h2>! Seccion Clientes ¡</h2>
 
                     <!--Creacion del Formulario Client-->
 
                     <label>NAME:</label>
-                    <input class="controlCliente" type="text" id="name3" placeholder="name"><br>
+                    <input class="controlCliente" type="text" id="name3" placeholder="escribe el nombre del cliente"><br>
                     <label>EMAIL:</label>
-                    <input class="controlCliente" type="text" id="email" placeholder="email"><br>
+                    <input class="controlCliente" type="text" id="email" placeholder="escribe el email del cliente"><br>
+                    <label>PASSWORD:</label>
+                    <input class="controlCliente" type="password" id="password" placeholder="escribe el password del cliente"><br>
                     <label>AGE:</label>
-                    <input class="controlCliente" type="number" id="age" placeholder="age"><br>
+                    <input class="controlCliente" type="number" id="age" placeholder="escribe la edad del cliente"><br>
                     <br>
-                    <button class="botonCliente" onclick="agregarCliente()">Agregar!</button>
 
-                    <!--Creacion de la tabla de Clientes-->
-                    <div>
-                        <table class="tablaCliente">
-                            <h2>Lista de Clientes</h2>
-                            <tbody id="miListaClient"></tbody>
-                        </table>
-                    </div>
+                    <button class="botonCliente" onclick="agregarCliente()">Agregar!</button>
+                    <br>
+                    <h2>Lista de Clientes</h2>
+                    <div id="miListaCliente"></div>
                     <br>
                     <button class="botonCliente" onclick="listarCliente()">Listar!</button>
                     <button class="botonCliente" onclick="actualizarCliente()">Actualizar!</button>
                     <br>
+                    
                 </section>
+
+                <!------------------------------------MENU MESSAGE-------------------------------------------->
 
                 <section class="form-Message" id="Message">
                     <!--Seccion Mensajes-->
@@ -160,22 +173,25 @@
                     <!--Creacion del Formulario Message-->
 
                     <label>NAME:</label>
-                    <input class="controlMessage" type="text" id="messageText" placeholder="messageText"><br>
+                    <input class="controlMessage" type="text" id="messageText" placeholder="escribe el mensaje valorativo de la Patineta 'Skate'"><br>
+                    
                     <br>
+                
                     <button class="botonMessage" onclick="agregarMensaje()">Agregar!</button>
-
-                    <!--Creacion de la tabla de Client-->
-                    <div>
-                        <table class="tablaMessage">
-                            <h2>Lista de Mensajes</h2>
-                            <tbody id="miListaMessage"></tbody>
-                        </table>
-                    </div>
+                    <br>
+                    <h2>Lista de Mensajes</h2>
+                    <div id="miListaMessage"></div>
                     <br>
                     <button class="botonMessage" onclick="listarMensaje()">Listar!</button>
                     <button class="botonMessage" onclick="actualizarMensaje()">Actualizar!</button>
                     <br>
+                    <script type="text/javascript">
+                        window.onload = autoInicioMessage();
+                    </script>
+
                 </section>
+
+                <!-------------------------------MENU RESERVATION---------------------------------------->
 
                 <section class="form-Reservation" id="Reservation">
                     <!--Seccion Reservaciones-->
@@ -183,26 +199,82 @@
 
                     <!--Creacion del Formulario Reservation-->
 
-                    <label>STARTDATE:</label>
+                    <label>STARTDATE: Escoja la Fecha Inicio de la Reservacion</label>
                     <input class="controlReservation" type="date" id="startDate" placeholder="startDate"><br>
-                    <label>DEVOLUTIONDATE:</label>
+                    <label>DEVOLUTIONDATE: Escoja la Fecha Devolucion de la Reservacion</label>
                     <input class="controlReservation" type="date" id="devolutionDate" placeholder="devolutionDate"><br>
-                    <label>STATUS:</label>
-                    <input class="controlReservation" type="text" id="status" placeholder="status">
+                    <label>STATUS: Estado de la Reservacion "completed / cancelled</label>
+                    <input class="controlReservation" type="text" id="status" placeholder="escriba completed o cancelled para el estado de la Reservacion ">
+                    <br>
+                    <script type="text/javascript">
+                        window.onload = autoInicioClient();
+                    </script>
+                    <script type="text/javascript">
+                        window.onload = autoInicioSkate();
+                    </script>
+                    <label>Seleccionar Skate</label>
+                    <label>Seleccionar Cliente</label><br>
+                    <select id="select-skate"></select>
+                    <select id="select-client"></select>
                     <br>
                     <button class="botonReservation" onclick="agregarReservation()">Agregar!</button>
-
-                    <!--Creacion de la tabla de Reservations-->
-                    <div>
-                        <table class="tablaReservation">
-                            <h2>Lista de Reservaciones</h2>
-                            <tbody id="miListaReservation"></tbody>
-                        </table>
-                    </div>
                     <br>
+                    <h2>Lista de Reservaciones</h2>
+                    <div id="miListaReservation"></div>
+                    <br>
+                    
                     <button class="botonReservation" onclick="listarReservation()">Listar!</button>
                     <button class="botonReservation" onclick="actualizarReservation()">Actualizar!</button>
                     <br>
+                </section>
+
+                <!----------------------------------------MENU REPORTS------------------------------------->
+                <section class="form-Report" id="Reports">
+                    <!--Seccion Reportes-->
+                    <h2>! Seccion Reportes ¡</h2>
+
+                    <!--Creacion del Formulario Reportes-->
+
+                    <button class="botonReporte" onclick="reportStatus()">Reporte Reservas "Status"!</button>
+                    <br>
+                    <br>
+                    <!--Creacion de la tabla de Status-->
+                    
+                    <div>
+                        <table class="tablaReporte">
+                            <tbody id="miListaStatus"></tbody>
+                        </table>
+                    </div>
+                    <br>
+                    <button class="botonReporte" onclick="reportClient()">Reporte Reservas por Clientes!</button>
+                    <br>
+                    <br>
+                    
+                    <!--Creacion de la tabla de Clientes-->
+                    <div>
+                        <table class="tablaReporte">
+                            <tbody id="miListaClientes"></tbody>
+                        </table>
+                    </div>
+                    <br>
+                    <label>FECHA INICIAL: Escoja la fecha inicial del reporte</label>
+                    <input class="controlReporte" type="date" id="dateOne" placeholder="fechaInicial"><br>
+                    <label>FECHA FINAL: Escoja la fecha final del reporte</label>
+                    <input class="controlReporte" type="date" id="dateTwo" placeholder="fechaFinal"><br>
+                    
+                    <button class="botonReporte" onclick="reportDate()">Reporte Reservas por Fechas!</button>
+                    <br>
+                    <br>
+                    <!--Creacion de la tabla de fechas-->
+                    <div>
+                        <table class="tablaReporte">
+                            <tbody id="miListaDates"></tbody>
+                        </table>
+                    </div>
+                    <br>
+                    
+                    <br>
+                    
                 </section>
             </div>
         </div>

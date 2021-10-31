@@ -3,6 +3,7 @@ package com.usa.Modelo;
 
 /**
  *  By : Alejandro Amaya
+ * 
  */
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

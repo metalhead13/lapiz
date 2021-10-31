@@ -1,67 +1,89 @@
 //Manejador "POST"
 function agregarReservation() {
-    let elemento = {
-        startDate: $("#startDate").val(),
-        devolutionDate: $("#devolutionDate").val(),
-        status: $("#status").val()
-    }
-
-    let dataToSend = JSON.stringify(elemento);
-
-    $.ajax({
-        type: "POST",
-        contentType: "application/json",
-        url:"http://150.136.55.225:80/api/Reservation/save",
-        //url: "http://localhost:8080/api/Reservation/save",
-        data: dataToSend,
-        datatype: "json",
-
-        success: function (response) {
-            console.log(response);
-            //Limpiar Campos
-            $("#resultado5").empty();
-            $("#startDate").val("");
-            $("#devolutionDate").val("");
-            $("#status").val("");
-
-            //Listar Tabla
-
-            alert("Se ha guardado Correctamente!")
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            alert("No se guardo Correctamente!")
+    
+    if($("#startDate").val().length == 0 || $("#devolutionDate").val().length == 0 || $("#status").val().length == 0){
+        alert("Todos los campos son Obligatorios")
+    }else{  
+        let elemento = {
+            startDate: $("#startDate").val(),
+            devolutionDate: $("#devolutionDate").val(),
+            status: $("#status").val(),
+            skate:{id: +$("#select-skate").val()},
+            client:{idClient: +$("#select-client").val()},
+            
         }
-    });
+
+        let dataToSend = JSON.stringify(elemento);
+
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url:"http://150.136.55.225:80/api/Reservation/save",
+            //url: "http://localhost:8080/api/Reservation/save",
+            data: dataToSend,
+            datatype: "json",
+
+            success: function (response) {
+                console.log(response);
+                //Limpiar Campos
+                $("#resultado5").empty();
+                $("#startDate").val("");
+                $("#devolutionDate").val("");
+                $("#status").val("");
+
+                //Listar Tabla
+
+                alert("Se ha guardado Correctamente!")
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("No se guardo Correctamente!")
+            }
+        });
+    }
 }
 
 
-//Manejador GET
-function listarReservation() {
+
+function listarReservation(){
     $.ajax({
         url:"http://150.136.55.225:80/api/Reservation/all",
         //url: "http://localhost:8080/api/Reservation/all",
         type: "GET",
         datatype: "JSON",
         success: function (response) {
-
-            for (i = 0; i < response.length; i++) {
-                var misItems = response;
-                for (i = 0; i < misItems.length; i++) {
-                    console.log(misItems[i]);
-                    $("#miListaReservation").append("<tr>");
-                    $("#miListaReservation").append("<td>" + misItems[i].startDate + "</td>");
-                    $("#miListaReservation").append("<td>" + misItems[i].devolutionDate + "</td>");
-                    $("#miListaReservation").append("<td>" + misItems[i].status + "</td>");
-                    $("#miListaReservation").append('<td><button class = "botonReservation2" onclick="borrarReservation(' + misItems[i].idReservation + ')">Borrar Reserva!</button></td>');
-                    $("#miListaReservation").append('<td><button class = "botonReservation2" onclick="cargarDatosReservation(' + misItems[i].idReservation + ')">Editar Reserva!</button></td>');
-                    $("#miListaReservation").append('<td><button class = "botonReservation2" onclick="actualizarReservation(' + misItems[i].idReservation + ')">Actualizar Reserva!</button></td>');
-                    $("#miListaReservation").append("</tr>");
-                }
-            }
-        },
-        error: function (jqXHR, textStatus, errorThrown) { }
+            console.log(response);
+            pintarRespuestaReservation(response);
+        }
     });
 }
+
+function pintarRespuestaReservation(response){
+   
+    let myTable="<table>";
+    myTable+="<tr>";
+        myTable+="<td>Fecha Inicio</td>";
+        myTable+="<td>fecha Devolucion</td>";
+        myTable+="<td>Estado</td>";
+        myTable+="<td>Patineta</td>";
+        myTable+="<td>Cliente</td>";
+     "</tr>";
+      
+    for(i=0;i<response.length;i++){
+    myTable+="<tr>";
+        myTable+="<td>"+response[i].startDate+"</td>";
+        myTable+="<td>"+response[i].devolutionDate+"</td>";
+        myTable+="<td>"+response[i].status+"</td>";
+        myTable+="<td>"+response[i].skate.name+"</td>";
+        myTable+="<td>"+response[i].client.name+"</td>";
+        myTable+='<td><button class = "botonReservation2" onclick="borrarReservation(' + response[i].idReservation + ')">Borrar Reserva!</button></td>';
+        myTable+='<td><button class = "botonReservation2" onclick="cargarDatosReservation(' + response[i].idReservation + ')">Editar Reserva!</button></td>';
+        myTable+='<td><button class = "botonReservation2" onclick="actualizarReservation(' + response[i].idReservation + ')">Actualizar Reserva!</button></td>';
+        myTable+="</tr>";
+    }
+    myTable+="</table>";
+    $("#miListaReservation").html(myTable);
+}
+
 
 //Manejador DELETE
 function borrarReservation(idElemento) {
@@ -118,38 +140,87 @@ function cargarDatosReservation(id) {
 
 //Manejador PUT
 function actualizarReservation(idElemento) {
-    var elemento = {
-        idReservation: idElemento,
-        startDate: $("#startDate").val(),
-        devolutionDate: $("#devolutionDate").val(),
-        status: $("#status").val(),
+    
+    if($("#startDate").val().length == 0 || $("#devolutionDate").val().length == 0 || $("#status").val().length == 0){
+        alert("Todos los campos deben estar llenos")
+    }else{
+        let elemento = {
+            idReservation: idElemento,
+            startDate: $("#startDate").val(),
+            devolutionDate: $("#devolutionDate").val(),
+            status: $("#status").val(),
+            skate:{id: +$("#select-skate").val()},
+            client:{idClient: +$("#select-client").val()},
+        }
+
+        let dataToSend = JSON.stringify(elemento);
+
+        $.ajax({
+            datatype: 'json',
+            data: dataToSend,
+            contentType: "application/JSON",
+            url:"http://150.136.55.225:80/api/Reservation/update",
+            //url: "http://localhost:8080/api/Reservation/update",
+            type: "PUT",
+
+            success: function (response) {
+                console.log(response);
+                $("#miListaReservation").empty();
+                alert("se ha Actualizado Correctamente!")
+
+                //Limpiar Campos
+                $("#resultado5").empty();
+
+                $("#startDate").val("");
+                $("#devolutionDate").val("");
+                $("#status").val("");
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("No se Actualizo Correctamente!")
+            }
+        });
     }
+}
 
-    var dataToSend = JSON.stringify(elemento);
-
+function autoInicioClient() {
+    
+    console.log("Se esta ejecutando el autoinicio de Client...");
     $.ajax({
-        datatype: 'json',
-        data: dataToSend,
-        contentType: "application/JSON",
-        url:"http://150.136.55.225:80/api/Reservation/update",
-        //url: "http://localhost:8080/api/Reservation/update",
-        type: "PUT",
-
+        url:"http://150.136.55.225:80/api/Client/all",
+        //url: "http://localhost:8080/api/Client/all",
+        type: "GET",
+        datatype: "JSON",
         success: function (response) {
-            console.log(response);
-            $("#miListaReservation").empty();
-            alert("se ha Actualizado Correctamente!")
 
-            //Limpiar Campos
-            $("#resultado5").empty();
-
-            $("#startDate").val("");
-            $("#devolutionDate").val("");
-            $("#status").val("");
+            let $select = $("#select-client");
+            $.each(response, function (id, name) {
+                $select.append('<option value=' + name.idClient + '>' + name.name + '</option>');
+                console.log("select " + name.idClient);
+            });
 
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            alert("No se Actualizo Correctamente!")
-        }
+        error: function (jqXHR, textStatus, errorThrown) { }
+    });
+}
+
+function autoInicioSkate() {
+    
+    console.log("Se esta ejecutando el autoinicio de Skate...");
+    $.ajax({
+        url:"http://150.136.55.225:80/api/Skate/all",
+        //url: "http://localhost:8080/api/Skate/all",
+        type: "GET",
+        datatype: "JSON",
+        success: function (response) {
+
+            let $select = $("#select-skate");
+            $.each(response, function (id, name) {
+                $select.append('<option value=' + name.id + '>' + name.name + '</option>');
+                console.log("select " + name.id);
+            });
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) { }
     });
 }

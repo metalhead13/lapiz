@@ -1,6 +1,5 @@
 package com.usa.Servicios;
 
-import com.nimbusds.jose.shaded.json.parser.ParseException;
 import com.usa.Controlador.custom.CountClient;
 import com.usa.Controlador.custom.StatusAmount;
 import com.usa.Modelo.Reservation;
@@ -13,33 +12,64 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * Clase Servicios Reservacion
+ *
+ *
+ */
 @Service
 public class serviciosReservation {
-    
+
+    /**
+     * Metodo llamado a Repositorio Reservacion
+     */
     @Autowired
     private ReservationRepositorio metodosCrud;
-    
-    public List<Reservation> getAll(){
+
+    /**
+     * Metodo Privado Lista Reservation
+     *
+     * @return
+     */
+    public List<Reservation> getAll() {
         return metodosCrud.getAll();
     }
-    
-    public Optional<Reservation> getReservation(int idReservation){
+
+    /**
+     * Metodo Public Optional
+     *
+     * @param idReservation
+     * @return
+     */
+    public Optional<Reservation> getReservation(int idReservation) {
         return metodosCrud.getReservation(idReservation);
     }
-    
-    public Reservation save(Reservation reservation){
-        if(reservation.getIdReservation() == null){
+
+    /**
+     * Metodo Guardar Datos de Reservation
+     *
+     * @param reservation
+     * @return
+     */
+    public Reservation save(Reservation reservation) {
+        if (reservation.getIdReservation() == null) {
             return metodosCrud.save(reservation);
-        }else{
-            Optional<Reservation> evt=metodosCrud.getReservation(reservation.getIdReservation());
-            if(evt.isEmpty()){
+        } else {
+            Optional<Reservation> evt = metodosCrud.getReservation(reservation.getIdReservation());
+            if (evt.isEmpty()) {
                 return metodosCrud.save(reservation);
-            }else{
+            } else {
                 return reservation;
             }
         }
     }
-    
+
+    /**
+     * Metodo Actualizar Datos de Reservation
+     *
+     * @param reservation
+     * @return
+     */
     public Reservation update(Reservation reservation) {
         if (reservation.getIdReservation() != null) {
             Optional<Reservation> evt = metodosCrud.getReservation(reservation.getIdReservation());
@@ -62,7 +92,13 @@ public class serviciosReservation {
             return reservation;
         }
     }
-    
+
+    /**
+     * Metodo Borrar Datos
+     *
+     * @param idReservation
+     * @return
+     */
     public boolean deleteReservation(int idReservation) {
         Boolean del = getReservation(idReservation).map(reservation -> {
             metodosCrud.delete(reservation);
@@ -70,12 +106,19 @@ public class serviciosReservation {
         }).orElse(false);
         return del;
     }
-   
+    
+    /**
+     * Conteo Clientes
+     * @return 
+     */
     public List<CountClient> getTopClient(){
         return metodosCrud.getTopClient();
     }
 
-    
+    /**
+     * Cuenta cuantos Status de Reservations hay de completed y cancelled
+     * @return new StatusAmount
+     */
     public StatusAmount getStatusReport(){
         List<Reservation> completed = metodosCrud.getReservationByStatus("completed");
         List<Reservation> cancelled = metodosCrud.getReservationByStatus("cancelled");
@@ -84,6 +127,12 @@ public class serviciosReservation {
 
     }
 
+    /**
+     * Entrega una fecha especifica
+     * @param dato1 = dateOne
+     * @param dato2 = dateTwo
+     * @return new ArrayList<>()
+     */
     public List<Reservation> getReservationPeriod(String dato1, String dato2){
         SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
         Date dateOne = new Date();
@@ -92,10 +141,10 @@ public class serviciosReservation {
         try {
             dateOne = parser.parse(dato1);
             dateTwo = parser.parse(dato2);
-        }catch (Exception evt){
-        }
-        if (dateOne.before(dateTwo)){
-            return metodosCrud.getReservationByPeriod(dateOne, dateOne);
+        }catch (java.text.ParseException evt){
+            evt.printStackTrace();
+        }if (dateOne.before(dateTwo)){
+            return metodosCrud.getReservationByPeriod(dateOne, dateTwo);
         }else {
             return new ArrayList<>();
         }

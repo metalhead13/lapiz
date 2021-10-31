@@ -1,35 +1,41 @@
 //Manejador "POST"
 function agregarCategory() {
-    let elemento = {
-        name: $("#name").val(),
-        description: $("#description").val()
+
+    if($("#name").val().length == 0 || $("#description").val() == 0){
+        alert("Todos los campos son obligatorios")
+    }else{
+            let elemento = {
+                name: $("#name").val(),
+                description: $("#description").val()
+            }
+
+            let dataToSend = JSON.stringify(elemento);
+
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url:"http://150.136.55.225:80/api/Category/save",
+                //url: "http://localhost:8080/api/Category/save",
+                data: dataToSend,
+                datatype: "json",
+
+                success: function (response) {
+                    console.log(response);
+                    //Limpiar Campos
+                    $("#resultado").empty();
+                    $("#name").val("");
+                    $("#description").val("");
+
+                    //Listar Tabla
+                    alert("Se ha guardado Correctamente!")
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("NO se ha guardado Correctamente!")
+                }
+            });
     }
-
-    let dataToSend = JSON.stringify(elemento);
-
-    $.ajax({
-        type: "POST",
-        contentType: "application/json",
-        url:"http://150.136.55.225:80/api/Category/save",
-        //url: "http://localhost:8080/api/Category/save",
-        data: dataToSend,
-        datatype: "json",
-
-        success: function (response) {
-            console.log(response);
-            //Limpiar Campos
-            $("#resultado").empty();
-            $("#name").val("");
-            $("#description").val("");
-
-            //Listar Tabla
-            alert("Se ha guardado Correctamente!")
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            alert("NO se ha guardado Correctamente!")
-        }
-    });
 }
+
 
 
 //Manejador GET
@@ -40,24 +46,33 @@ function listarCategory() {
         type: "GET",
         datatype: "JSON",
         success: function (response) {
-
-            for (i = 0; i < response.length; i++) {
-                var misItems = response;
-                for (i = 0; i < misItems.length; i++) {
-                    console.log(misItems[i]);
-                    $("#miListaCategory").append("<tr>");
-                    $("#miListaCategory").append("<td>" + misItems[i].name + "</td>");
-                    $("#miListaCategory").append("<td>" + misItems[i].description + "</td>");
-                    $("#miListaCategory").append('<td><button class = "botonCategory2" onclick="borrarCategory(' + misItems[i].id + ')">Borrar Categoria!</button></td>');
-                    $("#miListaCategory").append('<td><button class = "botonCategory2" onclick="cargarDatosCategory(' + misItems[i].id + ')">Editar Categoria!</button></td>');
-                    $("#miListaCategory").append('<td><button class = "botonCategory2" onclick="actualizarCategory(' + misItems[i].id + ')">Actualizar Categoria!</button></td>');
-                    $("#miListaCategory").append("</tr>");
-                }
-            }
-        },
-        error: function (jqXHR, textStatus, errorThrown) { }
+            console.log(response);
+            pintarRespuestaCategoria(response);
+        }
     });
 }
+
+function pintarRespuestaCategoria(response) {
+
+    let myTable = "<table>";
+    myTable += "<tr>";
+    myTable += "<td>Nombre Categoria</td>";
+    myTable += "<td>Descripcion Categoria</td>";
+    "</tr>";
+
+    for (i = 0; i < response.length; i++) {
+        myTable += "<tr>";
+        myTable += "<td>" + response[i].name + "</td>";
+        myTable += "<td>" + response[i].description + "</td>";
+        myTable += '<td><button class = "botonCategory2" onclick="borrarCategory(' + response[i].id + ')">Borrar Categoria!</button></td>';
+        myTable += '<td><button class = "botonCategory2" onclick="cargarDatosCategory(' + response[i].id + ')">Editar Categoria!</button></td>';
+        myTable += '<td><button class = "botonCategory2" onclick="actualizarCategory(' + response[i].id + ')">Actualizar Categoria!</button></td>';
+        myTable += "</tr>";
+    }
+    myTable += "</table>";
+    $("#miListaCategory").html(myTable);
+}
+
 
 //Manejador DELETE
 function borrarCategory(idElemento) {
@@ -92,7 +107,7 @@ function borrarCategory(idElemento) {
 function cargarDatosCategory(id) {
     $.ajax({
         dataType: 'json',
-        url:"http://150.136.55.225:80/api/Category/all/"+id,
+        url:"http://150.136.55.225:80/api/Category/"+id,
         //url: "http://localhost:8080/api/Category/" + id,
         type: 'GET',
 
@@ -113,40 +128,44 @@ function cargarDatosCategory(id) {
 
 //Manejador PUT
 function actualizarCategory(idElemento) {
-    let elemento = {
-        id: idElemento,
-        name: $("#name").val(),
-        description: $("#description").val()
-    }
-
-    console.log(elemento);
-    let dataToSend = JSON.stringify(elemento);
-
-    $.ajax({
-        datatype: 'json',
-        data: dataToSend,
-        contentType: "application/json",
-        url:"http://150.136.55.225:80/api/Category/update",
-        //url: "http://localhost:8080/api/Category/update",
-        type: "PUT",
-
-        success: function (response) {
-            //console.log(response);
-            $("#miListaCategory").empty();
-            alert("se ha Actualizado Correctamente!")
-
-            //Limpiar Campos
-            $("#resultado").empty();
-            $("#name").val("");
-            $("#description").val("");
-
-
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            alert("No se ha Actualizado Correctamente")
+    
+    if($("#name").val().length == 0 || $("#description").val().length == 0){
+        alert("Todos los campos deben estar completos")
+    }else{
+        let elemento = {
+            id: idElemento,
+            name: $("#name").val(),
+            description: $("#description").val()
         }
-    });
 
+        console.log(elemento);
+        let dataToSend = JSON.stringify(elemento);
+
+        $.ajax({
+            datatype: 'json',
+            data: dataToSend,
+            contentType: "application/json",
+            url:"http://150.136.55.225:80/api/Category/update",
+            //url: "http://localhost:8080/api/Category/update",
+            type: "PUT",
+
+            success: function (response) {
+                //console.log(response);
+                $("#miListaCategory").empty();
+                alert("se ha Actualizado Correctamente!")
+
+                //Limpiar Campos
+                $("#resultado").empty();
+                $("#name").val("");
+                $("#description").val("");
+
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("No se ha Actualizado Correctamente")
+            }
+        });
+    }
 
 }
 
@@ -159,7 +178,7 @@ function autoInicioCategory() {
         datatype: "JSON",
         success: function (response) {
 
-            let $select = $("#selectCategory");
+            let $select = $("#select-category");
             $.each(response, function (id, name) {
                 $select.append('<option value=' + name.id + '>' + name.name + '</option>');
                 console.log("select " + name.id);
