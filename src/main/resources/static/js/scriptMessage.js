@@ -14,8 +14,8 @@ function agregarMensaje() {
             datatype: 'json',
             contentType: "application/json",
             data: dataToSend,
-            url:"http://150.136.55.225:80/api/Message/save",
-            //url: "http://localhost:8080/api/Message/save",
+            //url:"http://150.136.55.225:80/api/Message/save",
+            url: "http://localhost:8080/api/Message/save",
             type: "POST",
 
             success: function (response) {
@@ -38,8 +38,8 @@ function agregarMensaje() {
 
 function listarMensaje() {
     $.ajax({
-        url:"http://150.136.55.225:80/api/Message/all",
-        //url: "http://localhost:8080/api/Message/all",
+        //url:"http://150.136.55.225:80/api/Message/all",
+        url: "http://localhost:8080/api/Message/all",
         type: "GET",
         datatype: "JSON",
         success: function (response){
@@ -82,8 +82,8 @@ function borrarMensaje(idElemento) {
         {
             dataType: 'json',
             data: dataToSend,
-            url:"http://150.136.55.225:80/api/Message/"+idElemento,
-            //url: "http://localhost:8080/api/Message/" + idElemento,
+            //url:"http://150.136.55.225:80/api/Message/"+idElemento,
+            url: "http://localhost:8080/api/Message/" + idElemento,
             type: 'DELETE',
             contentType: "application/JSON",
             success: function (response) {
@@ -103,8 +103,8 @@ function borrarMensaje(idElemento) {
 function cargarDatosMensaje(id) {
     $.ajax({
         dataType: 'json',
-        url:"http://150.136.55.225:80/api/Message/"+id,
-        //url: "http://localhost:8080/api/Message/" + id,
+        //url:"http://150.136.55.225:80/api/Message/"+id,
+        url: "http://localhost:8080/api/Message/" + id,
         type: 'GET',
 
         success: function (response) {
@@ -139,8 +139,8 @@ function actualizarMensaje(idElemento) {
             datatype: 'json',
             data: dataToSend,
             contentType: "application/JSON",
-            url:"http://150.136.55.225:80/api/Message/update",
-            //url: "http://localhost:8080/api/Message/update",
+            //url:"http://150.136.55.225:80/api/Message/update",
+            url: "http://localhost:8080/api/Message/update",
             type: "PUT",
 
             success: function (response) {
@@ -164,8 +164,8 @@ function actualizarMensaje(idElemento) {
 function autoInicioMessage() {
     console.log("Se esta ejecutando el autoinicio de Client...");
     $.ajax({
-        url:"http://150.136.55.225:80/api/Message/all",
-        //url: "http://localhost:8080/api/Message/all",
+        //url:"http://150.136.55.225:80/api/Message/all",
+        url: "http://localhost:8080/api/Message/all",
         type: "GET",
         datatype: "JSON",
         success: function (response) {

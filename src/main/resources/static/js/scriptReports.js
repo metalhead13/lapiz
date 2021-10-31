@@ -2,8 +2,8 @@
 /* Reporte Status de Reservas*/
 function reportStatus(){
     $.ajax({
-        url:"http://150.136.55.225:80/api/Reservation/report-status",
-        //url:"http://localhost:8080/api/Reservation/report-status",
+        //url:"http://150.136.55.225:80/api/Reservation/report-status",
+        url:"http://localhost:8080/api/Reservation/report-status",
         type:"GET",
         datatype:"JSON",
         success:function(respuesta){
@@ -37,8 +37,8 @@ function pintarStatus(respuesta){
 /*  Reporte Clientes y Cantidad de Reservas  */
 function reportClient(){
     $.ajax({
-        url:"http://150.136.55.225:80/api/Reservation/report-clients",
-        //url:"http://localhost:8080/api/Reservation/report-clients",
+        //url:"http://150.136.55.225:80/api/Reservation/report-clients",
+        url:"http://localhost:8080/api/Reservation/report-clients",
         type:"GET",
         datatype:"JSON",
         success:function(respuesta){
@@ -84,8 +84,8 @@ function reportDate(){
     
 
         $.ajax({
-            url:"http://150.136.55.225:80/api/Reservation/report-dates/"+fechaInicio+"/"+fechaCierre,
-            //url:"http://localhost:8080/api/Reservation/report-dates/"+fechaInicio+"/"+fechaCierre,
+            //url:"http://150.136.55.225:80/api/Reservation/report-dates/"+fechaInicio+"/"+fechaCierre,
+            url:"http://localhost:8080/api/Reservation/report-dates/"+fechaInicio+"/"+fechaCierre,
             type:"GET",
             datatype:"JSON",
             success:function(respuesta){
