@@ -7,20 +7,20 @@ import com.usa.Modelo.Client;
 
 public class CountClient {
     
-    private Long total;
+     private Long totalClient;
     private Client client;
 
-    public CountClient(Long total, Client client) {
-        this.total = total;
+    public CountClient(Long totalClient, Client client) {
+        this.totalClient = totalClient;
         this.client = client;
     }
 
-    public Long getTotal() {
-        return total;
+    public Long getTotalClient() {
+        return totalClient;
     }
 
-    public void setTotal(Long total) {
-        this.total = total;
+    public void setTotalClient(Long totalClient) {
+        this.totalClient = totalClient;
     }
 
     public Client getClient() {
