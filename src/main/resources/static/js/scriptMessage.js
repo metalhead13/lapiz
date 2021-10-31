@@ -10,7 +10,7 @@ function agregarMensaje() {
         datatype: 'json',
         contentType: "application/json",
         data: dataToSend,
-        url:"http://168.138.247.22:80/api/Message/save",
+        url:"http://150.136.55.225:80/api/Message/save",
         //url: "http://localhost:8080/api/Message/save",
         type: "POST",
 
@@ -34,7 +34,7 @@ function agregarMensaje() {
 //Manejador GET
 function listarMensaje() {
     $.ajax({
-        url:"http://168.138.247.22:80/api/Message/all",
+        url:"http://150.136.55.225:80/api/Message/all",
         //url: "http://localhost:8080/api/Message/all",
         type: "GET",
         datatype: "JSON",
@@ -69,7 +69,7 @@ function borrarMensaje(idElemento) {
         {
             dataType: 'json',
             data: dataToSend,
-            url:"http://168.138.247.22:80/api/Message/"+idElemento,
+            url:"http://150.136.55.225:80/api/Message/"+idElemento,
             //url: "http://localhost:8080/api/Message/" + idElemento,
             type: 'DELETE',
             contentType: "application/JSON",
@@ -90,7 +90,7 @@ function borrarMensaje(idElemento) {
 function cargarDatosMensaje(id) {
     $.ajax({
         dataType: 'json',
-        url:"http://168.138.247.22:80/api/Message/"+id,
+        url:"http://150.136.55.225:80/api/Message/"+id,
         //url: "http://localhost:8080/api/Message/" + id,
         type: 'GET',
 
@@ -122,7 +122,7 @@ function actualizarMensaje(idElemento) {
         datatype: 'json',
         data: dataToSend,
         contentType: "application/JSON",
-        url:"http://168.138.247.22:80/api/Message/update",
+        url:"http://150.136.55.225:80/api/Message/update",
         //url: "http://localhost:8080/api/Message/update",
         type: "PUT",
 

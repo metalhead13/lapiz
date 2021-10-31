@@ -12,7 +12,7 @@ function agregarCliente() {
         datatype: 'json',
         contentType: "application/json",
         data: dataToSend,
-        url:"http://168.138.247.22:80/api/Client/save",
+        url:"http://150.136.55.225:80/api/Client/save",
         //url: "http://localhost:8080/api/Client/save",
         type: "POST",
 
@@ -38,7 +38,7 @@ function agregarCliente() {
 //Manejador GET
 function listarCliente() {
     $.ajax({
-        url:"http://168.138.247.22:80/api/Client/all",
+        url:"http://150.136.55.225:80/api/Client/all",
         //url: "http://localhost:8080/api/Client/all",
         type: "GET",
         datatype: "JSON",
@@ -75,7 +75,7 @@ function borrarCliente(idElemento) {
         {
             dataType: 'json',
             data: dataToSend,
-            url:"http://168.138.247.22:80/api/Client/"+idElemento,
+            url:"http://150.136.55.225:80/api/Client/"+idElemento,
             //url: "http://localhost:8080/api/Client/" + idElemento,
             type: 'DELETE',
             contentType: "application/json",
@@ -96,7 +96,7 @@ function borrarCliente(idElemento) {
 function cargarDatosCliente(id) {
     $.ajax({
         dataType: 'json',
-        url:"http://168.138.247.22:80/api/Client/"+id,
+        url:"http://150.136.55.225:80/api/Client/"+id,
         //url: "http://localhost:8080/api/Client/" + id,
         type: 'GET',
 
@@ -132,7 +132,7 @@ function actualizarCliente(idElemento) {
         datatype: 'json',
         data: dataToSend,
         contentType: "application/json",
-        url:"http://168.138.247.22:80/api/Client/update",
+        url:"http://150.136.55.225:80/api/Client/update",
         //url: "http://localhost:8080/api/Client/update",
         type: "PUT",
 

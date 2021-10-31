@@ -10,7 +10,7 @@ function agregarCategory() {
     $.ajax({
         type: "POST",
         contentType: "application/json",
-        url:"http://168.138.247.22:80/api/Category/save",
+        url:"http://150.136.55.225:80/api/Category/save",
         //url: "http://localhost:8080/api/Category/save",
         data: dataToSend,
         datatype: "json",
@@ -35,7 +35,7 @@ function agregarCategory() {
 //Manejador GET
 function listarCategory() {
     $.ajax({
-        url:"http://168.138.247.22:80/api/Category/all",
+        url:"http://150.136.55.225:80/api/Category/all",
         //url: "http://localhost:8080/api/Category/all",
         type: "GET",
         datatype: "JSON",
@@ -71,7 +71,7 @@ function borrarCategory(idElemento) {
         {
             dataType: 'json',
             data: dataToSend,
-            url:"http://168.138.247.22:80/api/Category/"+idElemento,
+            url:"http://150.136.55.225:80/api/Category/"+idElemento,
             //url: "http://localhost:8080/api/Category/" + idElemento,
             type: 'DELETE',
             contentType: "application/JSON",
@@ -92,7 +92,7 @@ function borrarCategory(idElemento) {
 function cargarDatosCategory(id) {
     $.ajax({
         dataType: 'json',
-        url:"http://168.138.247.22:80/api/Category/all/"+id,
+        url:"http://150.136.55.225:80/api/Category/all/"+id,
         //url: "http://localhost:8080/api/Category/" + id,
         type: 'GET',
 
@@ -126,7 +126,7 @@ function actualizarCategory(idElemento) {
         datatype: 'json',
         data: dataToSend,
         contentType: "application/json",
-        url:"http://168.138.247.22:80/api/Category/update",
+        url:"http://150.136.55.225:80/api/Category/update",
         //url: "http://localhost:8080/api/Category/update",
         type: "PUT",
 
@@ -153,7 +153,7 @@ function actualizarCategory(idElemento) {
 function autoInicioCategory() {
     console.log("Se esta ejecutando el autoinicio de Category...");
     $.ajax({
-        url:"http://168.138.247.22:80/api/Category/all",
+        url:"http://150.136.55.225:80/api/Category/all",
         //url: "http://localhost:8080/api/Category/all",
         type: "GET",
         datatype: "JSON",
