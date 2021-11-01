@@ -18,8 +18,8 @@ function agregarCliente() {
                 datatype: 'json',
                 contentType: "application/json",
                 data: dataToSend,
-                //url:"http://150.136.55.225:80/api/Client/save",
-                url: "http://localhost:8080/api/Client/save",
+                url:"http://150.136.55.225:80/api/Client/save",
+                //url: "http://localhost:8080/api/Client/save",
                 type: "POST",
 
                 success: function (response) {
@@ -45,8 +45,8 @@ function agregarCliente() {
 
 function listarCliente() {
     $.ajax({
-        //url:"http://150.136.55.225:80/api/Client/all",
-        url: "http://localhost:8080/api/Client/all",
+        url:"http://150.136.55.225:80/api/Client/all",
+        //url: "http://localhost:8080/api/Client/all",
         type: "GET",
         datatype: "JSON",
         success: function (response) {
@@ -94,8 +94,8 @@ function borrarCliente(idElemento) {
         {
             dataType: 'json',
             data: dataToSend,
-            //url:"http://150.136.55.225:80/api/Client/"+idElemento,
-            url: "http://localhost:8080/api/Client/" + idElemento,
+            url:"http://150.136.55.225:80/api/Client/"+idElemento,
+            //url: "http://localhost:8080/api/Client/" + idElemento,
             type: 'DELETE',
             contentType: "application/json",
             success: function (response) {
@@ -115,8 +115,8 @@ function borrarCliente(idElemento) {
 function cargarDatosCliente(id) {
     $.ajax({
         dataType: 'json',
-        //url:"http://150.136.55.225:80/api/Client/"+id,
-        url: "http://localhost:8080/api/Client/" + id,
+        url:"http://150.136.55.225:80/api/Client/"+id,
+        //url: "http://localhost:8080/api/Client/" + id,
         type: 'GET',
 
         success: function (response) {
@@ -157,8 +157,8 @@ function actualizarCliente(idElemento) {
             datatype: 'json',
             data: dataToSend,
             contentType: "application/json",
-            //url:"http://150.136.55.225:80/api/Client/update",
-            url: "http://localhost:8080/api/Client/update",
+            url:"http://150.136.55.225:80/api/Client/update",
+            //url: "http://localhost:8080/api/Client/update",
             type: "PUT",
 
             success: function (response) {
@@ -185,8 +185,8 @@ function actualizarCliente(idElemento) {
 function autoInicioClient() {
     console.log("Se esta ejecutando el autoinicio de Client...");
     $.ajax({
-        //url:"http://150.136.55.225:80/api/Client/all",
-        url: "http://localhost:8080/api/Client/all",
+        url:"http://150.136.55.225:80/api/Client/all",
+        //url: "http://localhost:8080/api/Client/all",
         type: "GET",
         datatype: "JSON",
         success: function (response) {
